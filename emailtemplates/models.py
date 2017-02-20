@@ -18,11 +18,13 @@ from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.db import models
 from django.template.defaultfilters import striptags
-import basic_models
+
+from basic_models.models import (NameSlug, CreatedUpdatedAt, CreatedUpdatedBy,
+                                 IsActive)
 
 
 
-class EmailTemplate(basic_models.SlugModel):
+class EmailTemplate(NameSlug, CreatedUpdatedAt, CreatedUpdatedBy, IsActive):
     base_template = models.CharField(max_length=1024, blank=True, help_text="If present, the name of a django template.<br/> The body field will be present as the 'email_body' context variable")
     subject = models.CharField(max_length=1024)
     from_address = models.CharField(max_length=1024, blank=True, null=True, help_text="Specify as: 'Full Name &lt;email@address>'<br/>Defaults to: 'no-reply@site.domain'")
