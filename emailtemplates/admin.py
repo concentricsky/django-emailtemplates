@@ -13,22 +13,21 @@
 # limitations under the License.
 
 from django.contrib import admin
-from django import forms
 
 from basic_models.admin import site
 
 from emailtemplates.models import *
 
 
-
 class EmailTemplateAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'subject', 'visible_from_address')
     search_fields = ('name', 'slug', 'subject', 'from_address', 'body')
     fieldsets = (
-        (None, {'fields': ('name', 'slug', 'from_address')}),
+        (None, {'fields': ('name', 'from_address')}),
         ('Email', {'fields': ('subject', 'body',)}),
-        ('Advanced', {'classes': ('',), 'fields': ('base_template','txt_body')})
+        ('Advanced', {'classes': ('',),
+                      'fields': ('base_template', 'txt_body')})
     )
-    prepopulated_fields = {'slug': ('name',)}
+
 
 site.register(EmailTemplate, EmailTemplateAdmin)
