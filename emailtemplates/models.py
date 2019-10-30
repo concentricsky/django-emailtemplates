@@ -62,7 +62,7 @@ class EmailTemplate(NameSlug, CreatedUpdatedAt, CreatedUpdatedBy, IsActive):
         text_body = self.render_txt(context) or striptags(html_body)
 
         subject = self._render_from_string(self.subject, context)
-        if isinstance(to_addresses, (str,unicode)):
+        if isinstance(to_addresses, str):
             to_addresses = (to_addresses,)
 
         whitelisted_email_addresses = getattr(settings, 'EMAILTEMPLATES_DEBUG_WHITELIST', [])
